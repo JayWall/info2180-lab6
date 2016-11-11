@@ -1,24 +1,63 @@
 <!DOCTYPE html>
 <html>
-    <button id="search" type="button">Search</button>
+    <div id="WB"><h1 style="color: white"><strong><font size=300%>Web Dictionary</font></strong></h1></div>
+    </br></br>
+    <input type="text" id= "word">
+    <button id="search" type="button" class="button">Search</button>
+    </br></br>
+    <div id="result"><strong>Result</strong></div>
     
+   <style type="text/css">
+       #WB{
+           border-width: 5px; 
+           height: 80px; 
+           border-style: solid; 
+           border-color: purple; 
+           background-color: purple;
+       }
+       
+       
+       .button {
+           background-color: #008CBA;
+           border: none;
+           color: white;
+           padding: 7px 14px;
+           text-align: center;
+           text-decoration: none;
+           display: inline-block;
+           font-size: 12px;
+           margin: 4px 2px;
+           cursor: pointer;
+           border-radius: 8px;
+        }
+        
+        #result {
+            font-size: 200%;
+        }
+           
+        
+   </style>
+   
     
     <script type="text/javascript">
-        
             var httpRequest = new XMLHttpRequest();
-            var url = "request.php?q=definition";
+            var url = "request.php?q=";
             var search = document.getElementById("search");
+            var result = document.getElementById("result");
+            var inputWord = document.getElementById("word");
+            
             
             search.addEventListener("click",function(){
-            httpRequest.open("GET", url, true);
+            httpRequest.open("GET", url + inputWord.value, true);
             
             httpRequest.onload = function(){ 
                 if (httpRequest.status === 200){
-                        alert(httpRequest.responseText);
+                        //alert(httpRequest.responseText);
+                        result.innerHTML = httpRequest.responseText;
                     } else {
                         alert ("There was a problem with the request.");
                     }
-                }
+                };
             httpRequest.send();    
             } );
     </script>
